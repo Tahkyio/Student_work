@@ -3,6 +3,10 @@
 
 class Fraction
 {public:
+	Fraction();
+	Fraction(int numerator, int denomenator);
+	~Fraction()=default;
+	
 	int numerator;
 	int denomenator;
 
@@ -10,6 +14,6 @@ class Fraction
 	Fraction getDiff(const Fraction b);
 	Fraction getMult(const Fraction b);
 	Fraction getDiv(const Fraction b);
-	void print_F();
+	void print();
 };
 

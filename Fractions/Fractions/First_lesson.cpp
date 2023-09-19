@@ -9,7 +9,7 @@
 
 
 
-int main()
+void not_main()
 {
 
 
@@ -20,13 +20,13 @@ int main()
 	b.denomenator = 5;
 
 	c = a.getSum(b);
-	c.print_F(); printf("\n");
+	c.print(); printf("\n");
 	c = a.getDiff(b);
-	c.print_F(); printf("\n");
+	c.print(); printf("\n");
 	c = a.getMult(b);
-	c.print_F(); printf("\n");
+	c.print(); printf("\n");
 	c = a.getDiv(b);
-	c.print_F(); printf("\n");
+	c.print(); printf("\n");
 	_getch();
 }
 
