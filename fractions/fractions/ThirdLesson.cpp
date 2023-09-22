@@ -6,14 +6,11 @@
 
 
 
-int main11()
+int main()
 {
-
-
 	Fraction a;
-
 	a.print();
 
 	_getch();
-	return 0;
+	
 }

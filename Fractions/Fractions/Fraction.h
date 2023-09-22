@@ -2,18 +2,26 @@
 
 
 class Fraction
-{public:
+{
+public:
 	Fraction();
-	Fraction(int numerator, int denomenator);
+	Fraction(const int numerator,const int denomenator);
 	~Fraction()=default;
 	
-	int numerator;
-	int denomenator;
 
-	Fraction getSum(const Fraction b);
-	Fraction getDiff(const Fraction b);
-	Fraction getMult(const Fraction b);
-	Fraction getDiv(const Fraction b);
-	void print();
+	Fraction getSum(const Fraction b) const;
+	Fraction getDiff(const Fraction b)const;
+	Fraction getMult(const Fraction b)const;
+	Fraction getDiv(const Fraction b) const;
+	void print() const;
+	int  getNumerator()const;
+	int  getDenomenator()const;
+	void setNumerator(int value);
+	void setDenomenator(int value);
+
+private:
+	int m_numerator=1;
+	int m_denomenator=1;
+
 };
 
