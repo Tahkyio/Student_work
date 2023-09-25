@@ -8,11 +8,17 @@ public:
 	Fraction(const int numerator,const int denomenator);
 	~Fraction()=default;
 	
-
+	Fraction reduce();
 	Fraction getSum(const Fraction b) const;
 	Fraction getDiff(const Fraction b)const;
 	Fraction getMult(const Fraction b)const;
 	Fraction getDiv(const Fraction b) const;
+
+	Fraction& operator +=(const Fraction&);
+	Fraction& operator -=(const Fraction&);
+	Fraction& operator *=(const Fraction&);
+	Fraction& operator /=(const Fraction&);
+
 	void print() const;
 	int  getNumerator()const;
 	int  getDenomenator()const;
