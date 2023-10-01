@@ -37,6 +37,10 @@ Fraction Fraction::reduce()
 		m_denomenator = 1;
 		return *this;
 	}
+	if(m_numerator == 0)
+	{
+		return *this;
+	}
 	if (m_denomenator % m_numerator == 0)
 	{
 		m_denomenator /= m_numerator;
@@ -180,6 +184,11 @@ void Fraction::setNumerator(int value)
 }
 void Fraction::setDenomenator(int value)
 {
+	if (value == 0)
+	{
+		std::cerr << "ERROR: Denomenator can't be set to 0 - it was set to 1 instead.";
+		m_denomenator = 1;
+	}
 	m_denomenator = value;
 }
 

@@ -8,7 +8,7 @@ using std::cout;
 
 int main()
 {
-	Fraction a(1,2), b(3,5),c(20,33);
+	Fraction a(1,2), b(3,5),c(20,33),o(0,1);
 	cout << "a = "; a.print();
 	cout << "\na+=b: ";
 	a += b;
@@ -30,5 +30,8 @@ int main()
 	cout << "\nc*=a: ";
 	c *= a;
 	c.print();
+	cout << "\n";
+	o.reduce();
+	o.print();
 	cout << "\n";
 }
