@@ -39,6 +39,7 @@ Fraction Fraction::reduce()
 	}
 	if(m_numerator == 0)
 	{
+		m_denomenator = 1;
 		return *this;
 	}
 	if (m_denomenator % m_numerator == 0)
@@ -71,12 +72,12 @@ Fraction Fraction::getSum(const Fraction b) const
 	Fraction c;
 	if (m_denomenator == b.m_denomenator)
 	{
-		c.m_numerator = m_numerator + b.m_numerator;
+		c.m_numerator   = m_numerator + b.m_numerator;
 		c.m_denomenator = m_denomenator;
 		return c;
 	}
-	c.m_numerator   = m_numerator*b.m_denomenator + b.m_numerator*m_denomenator;
-	c.m_denomenator = m_denomenator*b.m_denomenator;
+	c.m_numerator   = m_numerator   * b.m_denomenator + b.m_numerator*m_denomenator;
+	c.m_denomenator = m_denomenator * b.m_denomenator;
 	return c;
 }
 
@@ -89,7 +90,7 @@ Fraction Fraction::getDiff(const Fraction b) const
 		c.m_denomenator = m_denomenator;
 		return c;
 	}
-	c.m_numerator   = m_numerator * b.m_denomenator - b.m_numerator*m_denomenator;
+	c.m_numerator   = m_numerator   * b.m_denomenator - b.m_numerator*m_denomenator;
 	c.m_denomenator = m_denomenator * b.m_denomenator;
 	return c;
 
@@ -101,7 +102,7 @@ Fraction Fraction::getMult(const Fraction b) const
 		std::cerr << "ERROR: Fraction::getMult() resulted with 0 in denomenator - the result was replaced with 1/1 \n";
 		return(Fraction(1, 1));
 	}
-	c.m_numerator   = m_numerator * b.m_numerator;
+	c.m_numerator   = m_numerator   * b.m_numerator;
 	c.m_denomenator = m_denomenator * b.m_denomenator;
 	return c;
 
@@ -113,7 +114,7 @@ Fraction Fraction::getDiv(const Fraction b) const
 		std::cerr << "ERROR: Fraction::getDiv() resulted with 0 in denomenator - the result was replaced with 1/1 \n";
 		return(Fraction(1, 1));
 	}
-	c.m_numerator   = m_numerator * b.m_denomenator;
+	c.m_numerator   = m_numerator   * b.m_denomenator;
 	c.m_denomenator = m_denomenator * b.m_numerator;
 	return c;
 
@@ -127,7 +128,7 @@ Fraction& Fraction::operator +=(const Fraction& fract)
 		m_numerator = m_numerator + fract.m_numerator;
 		return *this;
 	}
-	m_numerator   = m_numerator * fract.m_denomenator + fract.m_numerator * m_denomenator;
+	m_numerator   = m_numerator   * fract.m_denomenator + fract.m_numerator * m_denomenator;
 	m_denomenator = m_denomenator * fract.m_denomenator;
 	return *this;
 }
@@ -138,7 +139,7 @@ Fraction& Fraction::operator -=(const Fraction& fract)
 		m_numerator = m_numerator - fract.m_numerator;
 		return *this;
 	}
-	m_numerator   = m_numerator * fract.m_denomenator - fract.m_numerator * m_denomenator;
+	m_numerator   = m_numerator   * fract.m_denomenator - fract.m_numerator * m_denomenator;
 	m_denomenator = m_denomenator * fract.m_denomenator;
 	return *this;
 }
@@ -149,7 +150,7 @@ Fraction& Fraction::operator *=(const Fraction& fract)
 		std::cerr << "ERROR: Fraction::operator *= found 0 in denomenator - multiplication wasn't applied. \n";
 		return *this;
 	}
-	m_numerator   = m_numerator * fract.m_numerator;
+	m_numerator   = m_numerator   * fract.m_numerator;
 	m_denomenator = m_denomenator * fract.m_denomenator;
 	return *this;
 }
@@ -159,9 +160,152 @@ Fraction& Fraction::operator /=(const Fraction& fract)
 		std::cerr << "ERROR: Fraction::operator /= found 0 in denomenator - division wasn't applied. \n";
 		return *this;
 	}
-	m_numerator   = m_numerator * fract.m_denomenator;
+	m_numerator   = m_numerator   * fract.m_denomenator;
 	m_denomenator = m_denomenator * fract.m_numerator;
 	return *this;
+}
+
+bool Fraction::operator ==(const Fraction& fract) const
+{
+	if (m_denomenator == 0 || fract.m_denomenator == 0) {
+		std::cerr << "ERROR: Fraction::operator == found 0 in denomenator - function returned 'false' as the result. \n";
+		return false;
+	}
+	if      (m_numerator   == 0 && fract.m_numerator == 0) return true;
+	else if (m_numerator   == 0 || fract.m_numerator == 0) return false;
+
+	Fraction x=*this, y=fract;
+	x.reduce(); y.reduce();
+
+	if (x.m_denomenator == y.m_denomenator)
+		if (x.m_numerator == y.m_numerator) return true;
+		else return false;
+
+	x.m_numerator *= y.m_denomenator;
+	y.m_numerator *= x.m_denomenator;
+
+	if (x.m_numerator == y.m_numerator) return true;
+	else return false;
+}
+
+bool Fraction::operator !=(const Fraction& fract) const
+{
+	if (m_denomenator == 0 || fract.m_denomenator == 0) {
+		std::cerr << "ERROR: Fraction::operator != found 0 in denomenator - function returned 'false' as the result. \n";
+		return false;
+	}
+	if (m_numerator == 0 && fract.m_numerator == 0) return false;
+	else if (m_numerator == 0 || fract.m_numerator == 0) return true;
+
+	Fraction x = *this, y = fract;
+	x.reduce(); y.reduce();
+
+	if (x.m_denomenator == y.m_denomenator)
+		if (x.m_numerator == y.m_numerator) return false;
+		else return true;
+
+	x.m_numerator *= y.m_denomenator;
+	y.m_numerator *= x.m_denomenator;
+
+	if (x.m_numerator == y.m_numerator) return false;
+	else return true;
+}
+
+
+bool Fraction::operator >(const Fraction& fract) const
+{
+	if (m_denomenator == 0 || fract.m_denomenator == 0) {
+		std::cerr << "ERROR: Fraction::operator > found 0 in denomenator - function returned 'false' as the result. \n";
+		return false;
+	}
+	if (m_numerator == 0 && fract.m_numerator == 0) return false;
+	else if (m_numerator == 0) return false;
+	else if (fract.m_numerator == 0) return true;
+
+	Fraction x = *this, y = fract;
+	x.reduce(); y.reduce();
+
+	if (x.m_denomenator == y.m_denomenator)
+		if (x.m_numerator > y.m_numerator) return true;
+		else return false;
+
+	x.m_numerator *= y.m_denomenator;
+	y.m_numerator *= x.m_denomenator;
+
+	if (x.m_numerator > y.m_numerator) return true;
+	else return false;
+}
+
+bool Fraction::operator <(const Fraction& fract) const
+{
+	if (m_denomenator == 0 || fract.m_denomenator == 0) {
+		std::cerr << "ERROR: Fraction::operator < found 0 in denomenator - function returned 'false' as the result. \n";
+		return false;
+	}
+	if (m_numerator == 0 && fract.m_numerator == 0) return false;
+	else if (m_numerator == 0) return true;
+	else if (fract.m_numerator == 0) return false;
+
+	Fraction x = *this, y = fract;
+	x.reduce(); y.reduce();
+
+	if (x.m_denomenator == y.m_denomenator)
+		if (x.m_numerator < y.m_numerator) return true;
+		else return false;
+
+	x.m_numerator *= y.m_denomenator;
+	y.m_numerator *= x.m_denomenator;
+
+	if (x.m_numerator < y.m_numerator) return true;
+	else return false;
+}
+
+bool Fraction::operator >=(const Fraction& fract) const
+{
+	if (m_denomenator == 0 || fract.m_denomenator == 0) {
+		std::cerr << "ERROR: Fraction::operator >= found 0 in denomenator - function returned 'false' as the result. \n";
+		return false;
+	}
+	if (m_numerator == 0 && fract.m_numerator == 0) return true;
+	else if (m_numerator == 0) return false;
+	else if (fract.m_numerator == 0) return true;
+
+	Fraction x = *this, y = fract;
+	x.reduce(); y.reduce();
+
+	if (x.m_denomenator == y.m_denomenator)
+		if (x.m_numerator >= y.m_numerator) return true;
+		else return false;
+
+	x.m_numerator *= y.m_denomenator;
+	y.m_numerator *= x.m_denomenator;
+
+	if (x.m_numerator >= y.m_numerator) return true;
+	else return false;
+}
+
+bool Fraction::operator <=(const Fraction& fract) const
+{
+	if (m_denomenator == 0 || fract.m_denomenator == 0) {
+		std::cerr << "ERROR: Fraction::operator <= found 0 in denomenator - function returned 'false' as the result. \n";
+		return false;
+	}
+	if (m_numerator == 0 && fract.m_numerator == 0) return true;
+	else if (m_numerator == 0) return true;
+	else if (fract.m_numerator == 0) return false;
+
+	Fraction x = *this, y = fract;
+	x.reduce(); y.reduce();
+
+	if (x.m_denomenator == y.m_denomenator)
+		if (x.m_numerator <= y.m_numerator) return true;
+		else return false;
+
+	x.m_numerator *= y.m_denomenator;
+	y.m_numerator *= x.m_denomenator;
+
+	if (x.m_numerator <= y.m_numerator) return true;
+	else return false;
 }
 ///////////////////////////////////////////////////////////////////////
 void Fraction::print() const
@@ -186,9 +330,9 @@ void Fraction::setDenomenator(int value)
 {
 	if (value == 0)
 	{
-		std::cerr << "ERROR: Denomenator can't be set to 0 - it was set to 1 instead.";
+		std::cerr << "ERROR: Denomenator can't be set to 0 - it was set to 1 instead.\n";
 		m_denomenator = 1;
 	}
-	m_denomenator = value;
+	else m_denomenator = value;
 }
 
