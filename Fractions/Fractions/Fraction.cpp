@@ -308,6 +308,19 @@ bool Fraction::operator <=(const Fraction& fract) const
 	else return false;
 }
 ///////////////////////////////////////////////////////////////////////
+void Fraction::input()
+{
+	int n=-1, d=-1;
+	std::cin >> n >> d;
+	while(d==0)
+	{
+		std::cout << "Denomenator cant be 0! Enter a valid value: ";
+		std::cin >> d;
+	}
+	m_numerator = n;
+	m_denomenator = d;
+}
+
 void Fraction::print() const
 {
 	printf("%d/%d", m_numerator, m_denomenator);

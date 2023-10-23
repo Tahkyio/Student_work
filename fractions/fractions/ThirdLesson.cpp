@@ -6,7 +6,7 @@
 using std::cout;
 
 
-int main()
+void main0()
 {
 	Fraction a(1,2), b(3,5),c(20,33),o(0,10),m(1,5),bb(30,50),oo(0,11);
 	/*ñout << "a = "; a.print();
