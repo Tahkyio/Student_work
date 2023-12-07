@@ -7,7 +7,7 @@ int const &Array::operator[](const int index) //сделать второй оператор, что тол
 	assert(index >= 0 && index < m_size);
 	return m_array[index];
 }
-int const& Array::operator[](const int index) const //сделать второй оператор, что только читает, но не меняет значений
+int const& Array::operator[](const int index) const 
 {
 	assert(index >= 0 && index < m_size);
 	return m_array[index];

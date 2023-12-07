@@ -9,6 +9,13 @@ public:
 	BoolVector(int size);
 	~BoolVector() = default;
 
+	UC& operator[](const int index) const;
+	BoolVector operator&(BoolVector vec)const;
+	BoolVector operator|(BoolVector vec)const;
+	BoolVector operator^(BoolVector vec)const;
+	BoolVector operator~()const;
+
+
 	void swap(BoolVector vec);
 	void set(UI const index, UI const value);
 	void invertByIndex(UI const index);
@@ -17,6 +24,6 @@ public:
 
 private:
 	int m_size = 0;
-	UC* m_arr = nullptr;
+	UC* m_array = nullptr;
 };
 
