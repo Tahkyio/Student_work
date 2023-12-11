@@ -6,19 +6,23 @@ class BoolVector
 {
 public:
 	BoolVector();
-	BoolVector(int size);
-	~BoolVector() = default;
+	BoolVector(int);
+	BoolVector(const BoolVector&);
+	~BoolVector();
 
-	UC& operator[](const int index) const;
-	BoolVector operator&(BoolVector vec)const;
-	BoolVector operator|(BoolVector vec)const;
-	BoolVector operator^(BoolVector vec)const;
+	UC& operator[](const int) const;
+	BoolVector operator=(BoolVector const);
+	BoolVector operator&(BoolVector const)const;
+	BoolVector operator|(BoolVector const)const;
+	BoolVector operator^(BoolVector const)const;
 	BoolVector operator~()const;
 
 
 	void swap(BoolVector vec);
-	void set(UI const index, UI const value);
-	void invertByIndex(UI const index);
+	void set(UI const, UI const);
+	void input();
+	void output();
+	void invertByIndex(UI const);
 	void invert();
 	int getSize() const;
 
