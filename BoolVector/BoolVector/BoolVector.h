@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #define UC unsigned char 
 #define UI unsigned int 
 
@@ -18,16 +19,19 @@ public:
 	BoolVector operator~()const;
 
 
-	void swap(BoolVector vec);
-	void set(UI const, UI const);
+	void swap(BoolVector with);
+	void set(UI const index, UI const value);
 	void input();
 	void output();
-	void invertByIndex(UI const);
+	void invertByIndex(UI const index);
 	void invert();
 	int getSize() const;
+	int getWeight() const;
 
 private:
 	int m_size = 0;
 	UC* m_array = nullptr;
 };
 
+std::ostream& operator<<(std::ostream& stream, const BoolVector& vec);
+std::istream& operator>>(std::istream& stream, BoolVector& vec);

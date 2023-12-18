@@ -6,6 +6,7 @@
 #define UC unsigned char
 #define UI unsigned int
 
+//Функции которые используются в других функциях
 int max(int a, int b)
 {
 	if(b>=a) return b;
@@ -213,4 +214,42 @@ void BoolVector::invert()
 int BoolVector::getSize() const
 {
 	return m_size;
+}
+
+int BoolVector::getWeight() const
+{
+	int count = 0;
+	for (int i = 0; i < m_size; i++)
+		if (m_array[i] == '1')
+			count++;
+	return count;
+	
+}
+
+std::ostream& operator<<(std::ostream& stream, const BoolVector& vec)
+{
+	for (int i = 0; i < vec.getSize() - 1; ++i)
+		stream << vec[i];
+	stream << vec[vec.getSize() - 1] << " ";
+	return stream;
+}
+
+//В таком случае ты не можешь ввести вектор любой длинны
+//еще надо как-то обработать чтобы человек не ввёл не те символы и числа 
+/*std::istream& operator>>(std::istream& stream, BoolVector& vec)
+{
+	for (int i = 0; i < vec.getSize(); ++i) {
+		stream >> vec[i];
+	}
+	return stream;
+}
+*/
+std::istream& operator>>(std::istream& stream, BoolVector& vec)
+{
+	for (int i = 0; i < vec.getSize(); ++i) {
+		stream >> vec[i];
+	}
+	return stream;
+	
+	return stream;
 }
